@@ -1,8 +1,11 @@
+drop table takes;
+drop table student;
 drop table teaches;
 drop table section;
 drop table course;
 drop table instructor;
 drop table department;
+
 
 create table department
   (dept_name varchar(20),
@@ -49,6 +52,26 @@ create table teaches
     references section(course_id,sec_id,semester,year),
   foreign key (ID) references instructor(ID));
 
+create table student(
+  ID varchar(5),
+  name varchar(20),
+  dept_name varchar(20),
+  tot_cred number(3,0),
+  primary key (ID),
+  foreign key (dept_name) references department(dept_name));
+
+create table takes(
+  ID varchar(5),
+  course_id varchar(8),
+  sec_id varchar(8),
+  semester varchar(6),
+  year numeric(4,0),
+  grade varchar(4),
+  primary key (ID, course_id, sec_id, semester, year),
+  foreign key (course_id, sec_id, semester, year)
+    references section(course_id, sec_id, semester, year),
+  foreign key (ID) references student(ID));
+  
 insert into department(dept_name, building, budget) values('Biology', 'Watson', 90000);
 insert into department(dept_name, building, budget) values('Comp.Sci.', 'Taylor', 100000);
 insert into department(dept_name, building, budget) values('Elec.Eng.', 'Taylor', 85000);
@@ -116,5 +139,42 @@ insert into teaches(ID, course_id, sec_id, semester, year) values('83821', 'CS-1
 insert into teaches(ID, course_id, sec_id, semester, year) values('83821', 'CS-190', '2', 'Spring', 2009);
 insert into teaches(ID, course_id, sec_id, semester, year) values('83821', 'CS-319', '2', 'Spring', 2010);
 insert into teaches(ID, course_id, sec_id, semester, year) values('98345', 'EE-181', '1', 'Spring', 2009);
+
+insert into student(ID, name, dept_name, tot_cred) values('00128', 'Zhang', 'Comp.Sci.', 102);
+insert into student(ID, name, dept_name, tot_cred) values('12345', 'Shankar', 'Comp.Sci.', 32);
+insert into student(ID, name, dept_name, tot_cred) values('19991', 'Brandt', 'History', 80);
+insert into student(ID, name, dept_name, tot_cred) values('23121', 'Chavez', 'Finance', 110);
+insert into student(ID, name, dept_name, tot_cred) values('44553', 'Peltier', 'Physics', 56);
+insert into student(ID, name, dept_name, tot_cred) values('45678', 'Levy', 'Physics', 46);
+insert into student(ID, name, dept_name, tot_cred) values('54321', 'Williams', 'Comp.Sci.', 54);
+insert into student(ID, name, dept_name, tot_cred) values('55739', 'Sanchez', 'Music', 38);
+insert into student(ID, name, dept_name, tot_cred) values('70557', 'Snow', 'Physics', 0);
+insert into student(ID, name, dept_name, tot_cred) values('76543', 'Brown', 'Comp.Sci.', 58);
+insert into student(ID, name, dept_name, tot_cred) values('76653', 'Aoi', 'Elec.Eng.', 60);
+insert into student(ID, name, dept_name, tot_cred) values('98765', 'Bourikas', 'Elec.Eng.', 98);
+insert into student(ID, name, dept_name, tot_cred) values('98988', 'Tanaka', 'Biology', 120);
+
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('00128', 'CS-101', '1', 'Fall', 2009, 'A');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('00128', 'CS-347', '1', 'Fall', 2009, 'A-');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('12345', 'CS-101', '1', 'Fall', 2009, 'C');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('12345', 'CS-190', '2', 'Spring', 2009, 'A');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('12345', 'CS-315', '1', 'Spring', 2010, 'A');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('12345', 'CS-347', '1', 'Fall', 2009, 'A');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('19991', 'HIS-351', '1', 'Spring', 2010, 'B');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('23121', 'FIN-201', '1', 'Spring', 2010, 'C+');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('44553', 'PHY-101', '1', 'Fall', 2009, 'B-');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('45678', 'CS-101', '1', 'Fall', 2009, 'F');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('45678', 'CS-101', '1', 'Spring', 2010, 'B+');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('45678', 'CS-319', '1', 'Spring', 2010, 'B');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('54321', 'CS-101', '1', 'Fall', 2009, 'A-');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('54321', 'CS-190', '2', 'Spring', 2009, 'B+');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('55739', 'MU-199', '1', 'Spring', 2010, 'A-');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('76543', 'CS-101', '1', 'Fall', 2009, 'A');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('76543', 'CS-319', '2', 'Spring', 2010, 'A');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('76653', 'EE-181', '1', 'Spring', 2009, 'C');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('98765', 'CS-101', '1', 'Fall', 2009, 'C-');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('98765', 'CS-315', '1', 'Spring', 2010, 'B');
+insert into takes(ID, course_id, sec_id, semester, year, grade) values('98988', 'BIO-101', '1', 'Summer', 2009, 'A');
+insert into takes(ID, course_id, sec_id, semester, year) values('98988', 'BIO-301', '1', 'Summer', 2010);
 
 commit;
